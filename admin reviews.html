@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disability Care Hub - Admin Reviews</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body {
+      min-height:100vh;
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 25%, #4A69BD 55%, #6C5CE7 100%);
+      background-size:400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color:#fff;
+    }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+    .glass {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      border-radius: 30px;
+    }
+
+    .btn-soft {
+      background: rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      color:#fff;
+      border-radius:18px;
+      padding:12px 18px;
+      text-decoration:none;
+      display:inline-block;
+      transition:.3s;
+    }
+    .btn-soft:hover { background: rgba(255,255,255,0.22); color:#fff; transform: translateY(-2px); }
+
+    .stat-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.98) 100%);
+      color:#222;
+      border-radius:24px;
+      padding:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      height:100%;
+      border: 1px solid rgba(255,255,255,0.55);
+    }
+    .stat-icon {
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      color:#fff;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,#FF6B9D 0%,#6C5CE7 100%);
+      box-shadow: 0 8px 18px rgba(108,92,231,0.28);
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(245,248,255,0.98) 100%);
+      color:#222;
+      border-radius:26px;
+      padding:22px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.55);
+    }
+
+    .control-input, .control-select {
+      border-radius:16px;
+      padding:12px 16px;
+      border:1px solid #ddd;
+      background: #fff;
+      color:#222;
+    }
+
+    .review-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(250,252,255,0.98) 100%);
+      border:1px solid rgba(108,92,231,0.12);
+      border-left: 6px solid #6C5CE7;
+      border-radius:22px;
+      padding:18px;
+      margin-bottom:16px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.05);
+      transition:transform .3s ease, box-shadow .3s ease, opacity .3s ease;
+      opacity: 1;
+      color:#1f2937;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow:0 14px 30px rgba(108,92,231,0.12); }
+    .review-card.animate-in { animation: cardIn .45s ease both; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    .badge-soft {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      background: rgba(108,92,231,0.12);
+      color:#6C5CE7;
+    }
+    .badge-verified { background: rgba(20,184,114,0.14); color:#0f9f57; }
+
+    .small-meta { font-size:13px; color:#6b7280; }
+    .action-btn {
+      border:none;
+      border-radius:14px;
+      padding:10px 14px;
+      font-weight:700;
+      transition:.25s ease;
+    }
+    .btn-verify { background:#14b872; color:#fff; }
+    .btn-delete { background:#ef4444; color:#fff; }
+    .btn-view { background:#6C5CE7; color:#fff; }
+
+    .empty-box {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(245,248,255,0.98) 100%);
+      color:#222;
+      border-radius:26px;
+      padding:50px 20px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.55);
+    }
+
+    .stars { color:#f59e0b; font-weight:800; }
+    .top-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+    .detail-line {
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0;
+      border-bottom:1px solid #eee;
+    }
+    .detail-line .label { font-weight:700; color:#6C5CE7; }
+    .detail-line .value { text-align:right; word-break:break-word; }
+
+    .review-image {
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+
+    .image-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 12px;
+      border-radius:999px;
+      background: rgba(59,130,246,0.12);
+      color:#2563eb;
+      font-size:12px;
+      font-weight:700;
+    }
+  </style>
+</head>
+<body>
+  <header class="glass py-4">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <div class="fw-bold fs-3">💬 Manage Reviews</div>
+          <div class="text-white-50">Moderate testimonials, verify buyers, and monitor ratings</div>
+        </div>
+        <div class="top-actions">
+          <a href="admin dashboard.html" class="btn-soft">🏠 Dashboard</a>
+          <a href="index.html" class="btn-soft">Home</a>
+          <button class="btn-soft" onclick="downloadPDF()">⬇️ Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div class="row g-3 mb-4">
+      <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-star"></i></div><div class="fs-2 fw-bold" id="totalReviews">0</div><div class="text-muted">Total Reviews</div></div></div>
+      <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-award"></i></div><div class="fs-2 fw-bold" id="avgRating">0.0</div><div class="text-muted">Average Rating</div></div></div>
+      <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div><div class="fs-2 fw-bold" id="verifiedCount">0</div><div class="text-muted">Verified Reviews</div></div></div>
+      <div class="col-md-3"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-box"></i></div><div class="fs-2 fw-bold" id="productCount">0</div><div class="text-muted">Products Reviewed</div></div></div>
+    </div>
+
+    <div class="panel mb-4">
+      <div class="row g-3">
+        <div class="col-md-4"><input id="searchInput" class="form-control control-input" placeholder="Search customer / product / feedback"></div>
+        <div class="col-md-3"><select id="filterProduct" class="form-select control-select"><option value="">All Products</option></select></div>
+        <div class="col-md-3"><select id="filterRating" class="form-select control-select"><option value="">All Ratings</option><option value="5">5 Stars</option><option value="4">4 Stars</option><option value="3">3 Stars</option><option value="2">2 Stars</option><option value="1">1 Star</option></select></div>
+        <div class="col-md-2 d-grid"><button class="btn btn-primary rounded-4" onclick="renderReviews()">Refresh</button></div>
+      </div>
+    </div>
+
+    <div id="reviewsContainer"></div>
+    <div id="emptyState" class="empty-box d-none">
+      <div class="display-1">💬</div>
+      <h3 class="fw-bold">No reviews found</h3>
+      <p class="mb-0">Customer testimonials will appear here.</p>
+    </div>
+  </main>
+
+  <div class="modal fade" id="reviewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Review Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script>
+    let reviews = [];
+
+    function esc(str) {
+      return String(str || '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+
+    function loadReviews() {
+      reviews = JSON.parse(localStorage.getItem('disabilitycare_testimonials')) || [];
+      reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    function calcAverage(list) {
+      if (!list.length) return 0;
+      return (list.reduce((s, r) => s + Number(r.rating || 0), 0) / list.length).toFixed(1);
+    }
+
+    function renderStats() {
+      document.getElementById('totalReviews').textContent = reviews.length;
+      document.getElementById('avgRating').textContent = calcAverage(reviews);
+      document.getElementById('verifiedCount').textContent = reviews.filter(r => r.verified).length;
+      document.getElementById('productCount').textContent = [...new Set(reviews.map(r => r.productName).filter(Boolean))].length;
+    }
+
+    function populateProductFilter() {
+      const filter = document.getElementById('filterProduct');
+      const products = [...new Set(reviews.map(r => r.productName).filter(Boolean))];
+      filter.innerHTML = `<option value="">All Products</option>` + products.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
+    }
+
+    function renderReviews() {
+      loadReviews();
+      populateProductFilter();
+      const search = document.getElementById('searchInput').value.trim().toLowerCase();
+      const product = document.getElementById('filterProduct').value;
+      const rating = document.getElementById('filterRating').value;
+
+      const filtered = reviews.filter(r => {
+        const matchSearch = (r.customerName || '').toLowerCase().includes(search) || (r.productName || '').toLowerCase().includes(search) || (r.feedback || '').toLowerCase().includes(search);
+        const matchProduct = !product || r.productName === product;
+        const matchRating = !rating || String(r.rating) === String(rating);
+        return matchSearch && matchProduct && matchRating;
+      });
+
+      renderStats();
+
+      const container = document.getElementById('reviewsContainer');
+      const empty = document.getElementById('emptyState');
+
+      if (!filtered.length) {
+        container.innerHTML = '';
+        empty.classList.remove('d-none');
+        return;
+      }
+
+      empty.classList.add('d-none');
+      container.innerHTML = filtered.map(r => `
+        <div class="review-card animate-in">
+          <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+            <div>
+              <div class="fw-bold fs-5">${esc(r.customerName || 'Customer')}</div>
+              <div class="small-meta">${esc(r.productName || '')}</div>
+            </div>
+            <div class="text-end">
+              <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+              <span class="badge-soft ${r.verified ? 'badge-verified' : ''}">${r.verified ? 'Verified' : 'Not Verified'}</span>
+            </div>
+          </div>
+
+          ${r.imageData ? `
+            <div class="mt-3">
+              <span class="image-pill mb-2"><i class="fa-solid fa-image"></i> Product Image</span>
+              <div>
+                <img src="${esc(r.imageData)}" alt="Uploaded product image" class="review-image">
+              </div>
+            </div>
+          ` : ''}
+
+          <p class="mt-3 mb-2">${esc(r.feedback || '')}</p>
+          <div class="small-meta d-flex justify-content-between flex-wrap gap-2">
+            <span>${r.createdAt ? new Date(r.createdAt).toLocaleString() : ''}</span>
+            <span>${r.verified ? 'Buyer-linked review' : 'Needs verification'}</span>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="action-btn btn-view" onclick="viewReview('${esc(r.createdAt)}')">View</button>
+            <button class="action-btn btn-verify" onclick="toggleVerify('${esc(r.createdAt)}')">${r.verified ? 'Unverify' : 'Verify'}</button>
+            <button class="action-btn btn-delete" onclick="deleteReview('${esc(r.createdAt)}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveReviews(next) {
+      localStorage.setItem('disabilitycare_testimonials', JSON.stringify(next));
+      renderReviews();
+    }
+
+    function toggleVerify(id) {
+      const idx = reviews.findIndex(r => r.createdAt === id);
+      if (idx === -1) return;
+      reviews[idx].verified = !reviews[idx].verified;
+      saveReviews(reviews);
+    }
+
+    function deleteReview(id) {
+      if (!confirm('Delete this review?')) return;
+      reviews = reviews.filter(r => r.createdAt !== id);
+      saveReviews(reviews);
+    }
+
+    function viewReview(id) {
+      const r = reviews.find(x => x.createdAt === id);
+      if (!r) return;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="detail-line"><span class="label">Customer</span><span class="value">${esc(r.customerName || '-')}</span></div>
+        <div class="detail-line"><span class="label">Product</span><span class="value">${esc(r.productName || '-')}</span></div>
+        <div class="detail-line"><span class="label">Rating</span><span class="value">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></div>
+        <div class="detail-line"><span class="label">Feedback</span><span class="value">${esc(r.feedback || '-')}</span></div>
+        <div class="detail-line"><span class="label">Verified</span><span class="value">${r.verified ? 'Yes' : 'No'}</span></div>
+        <div class="detail-line"><span class="label">Created At</span><span class="value">${r.createdAt ? new Date(r.createdAt).toLocaleString() : '-'}</span></div>
+        ${r.imageData ? `<div class="detail-line"><span class="label">Product Image</span><span class="value">Available</span></div>` : ''}
+      `;
+      new bootstrap.Modal(document.getElementById('reviewModal')).show();
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.setFontSize(18);
+      pdf.text('Disability Care Hub - Reviews Report', 14, 15);
+      pdf.setFontSize(10);
+      pdf.text(`Generated: ${new Date().toLocaleString()}`, 14, 24);
+
+      const rows = reviews.map(r => [r.customerName || '', r.productName || '', String(r.rating || ''), r.verified ? 'Yes' : 'No', r.feedback || '', r.createdAt ? new Date(r.createdAt).toLocaleString() : '']);
+      pdf.autoTable({ startY: 32, head: [['Customer', 'Product', 'Rating', 'Verified', 'Feedback', 'Date']], body: rows, styles: { fontSize: 8, cellPadding: 2 }, headStyles: { fillColor: [108, 92, 231] } });
+      pdf.save('reviews-report.pdf');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderReviews);
+    document.getElementById('filterProduct').addEventListener('change', renderReviews);
+    document.getElementById('filterRating').addEventListener('change', renderReviews);
+    renderReviews();
+  </script>
+</body>
+</html>

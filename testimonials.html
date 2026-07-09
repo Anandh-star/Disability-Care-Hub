@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disability Care Hub - Testimonials 💝</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#FF6B9D 0%,#C4456F 25%,#4A69BD 55%,#6C5CE7 100%);
+      background-size:400% 400%;
+      animation:grad 15s ease infinite;
+      color:#fff;
+    }
+    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    .glass{
+      background:rgba(255,255,255,.14);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 16px 40px rgba(0,0,0,.12);
+      border-radius:28px;
+    }
+    .btn-soft{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:#fff;
+      border-radius:16px;
+      padding:12px 18px;
+      text-decoration:none;
+      display:inline-block;
+      transition:.3s;
+    }
+    .btn-soft:hover{background:rgba(255,255,255,.22);color:#fff;transform:translateY(-2px)}
+    .panel{
+      background:rgba(255,255,255,.96);
+      color:#222;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    .hero{
+      background:rgba(255,255,255,.96);
+      color:#222;
+      border-radius:34px;
+      padding:34px;
+      box-shadow:0 20px 60px rgba(0,0,0,.16);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top right, rgba(108,92,231,.16), transparent 35%),
+                 radial-gradient(circle at bottom left, rgba(255,107,157,.16), transparent 35%);
+      pointer-events:none;
+    }
+    .hero-title{
+      font-size:clamp(34px,5vw,58px);
+      font-weight:900;
+      line-height:1.05;
+      margin-bottom:10px;
+      background:linear-gradient(135deg,#FF6B9D,#C4456F,#6C5CE7);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .hero-sub{
+      color:#555;
+      font-size:17px;
+      max-width:850px;
+    }
+    .hero-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(108,92,231,.10);
+      color:#6C5CE7;
+      font-size:13px;
+      font-weight:700;
+      margin:10px 8px 0 0;
+    }
+    .section-box{
+      background:rgba(255,255,255,.96);
+      color:#222;
+      border-radius:32px;
+      box-shadow:0 16px 50px rgba(0,0,0,.14);
+      padding:28px;
+      margin-top:24px;
+    }
+    .section-title{
+      text-align:center;
+      font-size:32px;
+      font-weight:800;
+      margin-bottom:24px;
+      background:linear-gradient(135deg,#FF6B9D,#6C5CE7);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .stat-box{
+      background:#fff;
+      border-radius:22px;
+      padding:22px;
+      text-align:center;
+      box-shadow:0 10px 28px rgba(0,0,0,.08);
+      transition:.25s ease;
+      height:100%;
+    }
+    .stat-box:hover{transform:translateY(-6px);box-shadow:0 16px 34px rgba(108,92,231,.16)}
+    .stat-icon{
+      width:56px;height:56px;margin:0 auto 12px;border-radius:16px;
+      display:grid;place-items:center;color:#fff;
+      background:linear-gradient(135deg,#FF6B9D,#6C5CE7);
+      font-size:22px;
+    }
+    .stat-number{font-size:30px;font-weight:800;color:#6C5CE7;line-height:1}
+    .stat-label{color:#666;font-size:14px;margin-top:6px;font-weight:600}
+    .controls{
+      display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;
+      margin-bottom:22px;
+    }
+    .filter-select,.search-input{
+      border-radius:18px;border:1px solid #e5e7eb;padding:14px 16px;background:#fff;
+      min-width:240px;box-shadow:0 6px 18px rgba(0,0,0,.04);outline:none;
+    }
+    .filter-select:focus,.search-input:focus{
+      border-color:#6C5CE7;box-shadow:0 0 0 .2rem rgba(108,92,231,.14);
+    }
+    .action-btn{
+      border:none;padding:14px 22px;border-radius:18px;font-weight:700;color:#fff;
+      background:linear-gradient(135deg,#6C5CE7,#FF6B9D);
+      box-shadow:0 10px 24px rgba(108,92,231,.25);
+      transition:.25s ease;
+    }
+    .action-btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(108,92,231,.3)}
+    .review-card{
+      background:#fff;border:1px solid #eef0f4;border-radius:24px;padding:24px;
+      box-shadow:0 10px 26px rgba(0,0,0,.08);
+      transition:.28s ease;overflow:hidden;position:relative;height:100%;
+    }
+    .review-card::after{
+      content:"";position:absolute;top:0;left:0;width:100%;height:4px;
+      background:linear-gradient(90deg,#FF6B9D,#6C5CE7);
+    }
+    .review-card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(0,0,0,.12)}
+    .customer-name{font-size:20px;font-weight:800;color:#222;margin-bottom:2px}
+    .product-name{font-size:14px;color:#6b7280;margin-bottom:12px}
+    .stars{color:#f59e0b;font-size:17px;font-weight:800;letter-spacing:1px}
+    .badge-soft{
+      display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;
+      font-size:12px;font-weight:700;background:rgba(108,92,231,.10);color:#6C5CE7;
+    }
+    .badge-verified{background:rgba(20,184,114,.14);color:#0f9f57}
+    .feedback-text{
+      margin:14px 0 0;padding:15px;border-radius:16px;
+      background:linear-gradient(135deg,#f8fafc,#eef2ff);
+      color:#444;line-height:1.7;font-size:15px;
+    }
+    .review-image{
+      width:100%;max-width:240px;border-radius:18px;margin-top:14px;
+      border:2px solid #edf0f7;box-shadow:0 10px 20px rgba(0,0,0,.08);object-fit:cover;
+    }
+    .image-pill{
+      display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;
+      background:rgba(59,130,246,.12);color:#2563eb;font-size:12px;font-weight:700;
+    }
+    .meta-info{
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      margin-top:16px;color:#888;font-size:13px;
+    }
+    .empty-state{text-align:center;padding:46px 18px;color:#7c7c7c}
+    .empty-icon{font-size:76px;margin-bottom:10px}
+    .modal-content{
+      border:none;border-radius:26px;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.22);
+    }
+    .modal-header{
+      background:linear-gradient(135deg,#FF6B9D,#6C5CE7);color:#fff;border:none;
+    }
+    .form-control,.form-select{border-radius:16px;padding:12px 14px}
+    .footer-note{
+      text-align:center;color:rgba(255,255,255,.9);margin-top:18px;font-size:14px;
+    }
+    @media (max-width:768px){
+      .hero,.section-box{padding:22px;border-radius:24px}
+      .controls{flex-direction:column;align-items:stretch}
+      .filter-select,.search-input{width:100%;min-width:0}
+      .meta-info{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <nav class="glass py-3">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <div>
+        <div class="fw-bold fs-3">💝 Testimonials</div>
+        <div class="text-white-50">Product and service reviews</div>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="index.html" class="btn-soft">🏠 Home</a>
+        <a href="index.html#products" class="btn-soft">🛍️ Products</a>
+        <a href="index.html#services" class="btn-soft">⚙️ Services</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4 py-lg-5">
+    <div class="hero">
+      <h1 class="hero-title">Testimonials 💝</h1>
+      <p class="hero-sub">Real feedback from customers using our products and services. Reviews help us improve support, comfort, and trust.</p>
+      <div>
+        <span class="hero-pill"><i class="fa-solid fa-star"></i> Verified reviews</span>
+        <span class="hero-pill"><i class="fa-solid fa-box"></i> Products + Services</span>
+        <span class="hero-pill"><i class="fa-solid fa-heart"></i> Customer trust</span>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2 class="section-title">Customer Highlights</h2>
+
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3"><div class="stat-box"><div class="stat-icon"><i class="fa-solid fa-star"></i></div><div class="stat-number" id="totalReviews">0</div><div class="stat-label">Total Reviews</div></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-box"><div class="stat-icon"><i class="fa-solid fa-award"></i></div><div class="stat-number" id="avgRating">0.0</div><div class="stat-label">Average Rating</div></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-box"><div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div><div class="stat-number" id="verifiedCount">0</div><div class="stat-label">Verified Reviews</div></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-box"><div class="stat-icon"><i class="fa-solid fa-heart"></i></div><div class="stat-number" id="happyCount">0%</div><div class="stat-label">Happy Customers</div></div></div>
+      </div>
+
+      <div class="controls">
+        <select id="testimonialCategoryFilter" class="filter-select" onchange="loadTestimonials()">
+          <option value="">All Items</option>
+        </select>
+        <input id="testimonialSearch" class="search-input" type="text" placeholder="Search name, item, feedback..." oninput="loadTestimonials()">
+        <button class="action-btn" onclick="showAddReviewModal()"><i class="fa-solid fa-pen-to-square me-2"></i>Add Review</button>
+      </div>
+
+      <div id="testimonialGrid" class="row g-4"></div>
+      <div id="emptyState" class="empty-state" style="display:none;">
+        <div class="empty-icon">💬</div>
+        <h4 class="fw-bold">No testimonials yet</h4>
+        <p class="mb-0">First customer review will appear here.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">Made with care for accessibility, comfort, and trust.</div>
+  </div>
+
+  <div class="modal fade" id="addReviewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">✨ Share Your Experience</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="reviewForm">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Your Name *</label>
+              <input type="text" class="form-control" id="customerName" required placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Product / Service *</label>
+              <select class="form-select" id="productName" required>
+                <option value="">Select an item</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Rating *</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="btn btn-outline-warning rounded-3" onclick="setRating(1)">★</button>
+                <button type="button" class="btn btn-outline-warning rounded-3" onclick="setRating(2)">★★</button>
+                <button type="button" class="btn btn-outline-warning rounded-3" onclick="setRating(3)">★★★</button>
+                <button type="button" class="btn btn-outline-warning rounded-3" onclick="setRating(4)">★★★★</button>
+                <button type="button" class="btn btn-outline-warning rounded-3" onclick="setRating(5)">★★★★★</button>
+              </div>
+              <input type="hidden" id="ratingValue" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Your Feedback *</label>
+              <textarea class="form-control" id="feedback" rows="4" required placeholder="Share your experience..."></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-bold">Upload Image (Optional)</label>
+              <input type="file" class="form-control" id="imageInput" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-3 rounded-4 fw-bold">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  const testimonialsKey = 'disabilitycare_testimonials';
+  const productsKey = 'disabilitycare_products';
+  const servicesKey = 'disabilitycare_services';
+  let currentRating = 0;
+
+  function esc(str){
+    return String(str || '')
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+
+  function getJSON(key, fallback = []) {
+    try {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function setJSON(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function calcAverage(list) {
+    if (!list.length) return '0.0';
+    return (list.reduce((s, r) => s + Number(r.rating || 0), 0) / list.length).toFixed(1);
+  }
+
+  function getAllItemsFromStore(storeKey) {
+    const data = getJSON(storeKey, []);
+    const flat = [];
+
+    data.forEach(group => {
+      if (Array.isArray(group.items)) {
+        group.items.forEach(item => {
+          if (item && item.name) flat.push({
+            name: item.name,
+            price: item.price || '',
+            type: storeKey === productsKey ? 'product' : 'service'
+          });
+        });
+      } else if (group && group.name) {
+        flat.push({
+          name: group.name,
+          price: group.price || '',
+          type: storeKey === productsKey ? 'product' : 'service'
+        });
+      }
+    });
+
+    return flat;
+  }
+
+  function getAllItems() {
+    const items = [
+      ...getAllItemsFromStore(productsKey),
+      ...getAllItemsFromStore(servicesKey)
+    ];
+
+    return [...new Map(items.map(i => [i.name, i])).values()];
+  }
+
+  function fillDropdowns() {
+    const items = getAllItems();
+    const filter = document.getElementById('testimonialCategoryFilter');
+    const select = document.getElementById('productName');
+    const currentFilter = filter.value;
+
+    filter.innerHTML = `<option value="">All Items</option>` +
+      items.map(i => `<option value="${esc(i.name)}">${esc(i.name)}</option>`).join('');
+
+    select.innerHTML = `<option value="">Select an item</option>` +
+      items.map(i => `<option value="${esc(i.name)}">${esc(i.name)}</option>`).join('');
+
+    filter.value = currentFilter;
+  }
+
+  function showAddReviewModal() {
+    fillDropdowns();
+    new bootstrap.Modal(document.getElementById('addReviewModal')).show();
+  }
+
+  function setRating(r) {
+    currentRating = r;
+    document.getElementById('ratingValue').value = r;
+  }
+
+  function loadTestimonials() {
+    fillDropdowns();
+
+    const testimonials = getJSON(testimonialsKey, []);
+    const filterValue = document.getElementById('testimonialCategoryFilter').value.trim();
+    const q = document.getElementById('testimonialSearch').value.toLowerCase().trim();
+
+    const filtered = testimonials.filter(r => {
+      const matchFilter = !filterValue || r.productName === filterValue;
+      const hay = `${r.customerName || ''} ${r.productName || ''} ${r.feedback || ''}`.toLowerCase();
+      const matchSearch = !q || hay.includes(q);
+      return matchFilter && matchSearch;
+    });
+
+    const verified = filtered.filter(r => r.verified);
+
+    document.getElementById('totalReviews').textContent = filtered.length;
+    document.getElementById('avgRating').textContent = calcAverage(filtered);
+    document.getElementById('verifiedCount').textContent = verified.length;
+    document.getElementById('happyCount').textContent = filtered.length
+      ? Math.round((filtered.filter(r => Number(r.rating || 0) >= 4).length / filtered.length) * 100) + '%'
+      : '0%';
+
+    const grid = document.getElementById('testimonialGrid');
+    const empty = document.getElementById('emptyState');
+
+    if (!verified.length) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+
+    empty.style.display = 'none';
+    grid.innerHTML = verified.map(r => `
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="review-card">
+          <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+            <div>
+              <div class="customer-name">${esc(r.customerName || 'Customer')}</div>
+              <div class="product-name"><i class="fa-solid fa-box me-1"></i>${esc(r.productName || '')}</div>
+            </div>
+            <div class="text-end">
+              <div class="stars">${'★'.repeat(Number(r.rating || 0))}${'☆'.repeat(5 - Number(r.rating || 0))}</div>
+              <span class="badge-soft badge-verified mt-2"><i class="fa-solid fa-circle-check"></i> Verified</span>
+            </div>
+          </div>
+
+          ${r.imageData ? `
+            <div class="mt-3">
+              <span class="image-pill mb-2"><i class="fa-solid fa-image"></i> Product Image</span>
+              <img src="${esc(r.imageData)}" alt="review image" class="review-image">
+            </div>
+          ` : ''}
+
+          <div class="feedback-text">${esc(r.feedback || '')}</div>
+
+          <div class="meta-info">
+            <span><i class="fa-solid fa-calendar me-1"></i>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : ''}</span>
+            <span><i class="fa-solid fa-heart me-1"></i>Happy Customer</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!currentRating) return alert('Please select rating');
+
+    const imageInput = document.getElementById('imageInput');
+    let imageData = '';
+    if (imageInput.files[0]) imageData = await imageToBase64(imageInput.files[0]);
+
+    const reviews = getJSON(testimonialsKey, []);
+    reviews.push({
+      customerName: document.getElementById('customerName').value.trim(),
+      productName: document.getElementById('productName').value.trim(),
+      rating: currentRating,
+      feedback: document.getElementById('feedback').value.trim(),
+      imageData,
+      verified: false,
+      createdAt: new Date().toISOString()
+    });
+
+    setJSON(testimonialsKey, reviews);
+    bootstrap.Modal.getInstance(document.getElementById('addReviewModal')).hide();
+    document.getElementById('reviewForm').reset();
+    currentRating = 0;
+    loadTestimonials();
+    alert('Thank you! Your review has been submitted.');
+  });
+
+  function imageToBase64(file) {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', loadTestimonials);
+  window.addEventListener('storage', loadTestimonials);
+</script>
+</body>
+</html>

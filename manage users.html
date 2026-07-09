@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disability Care Hub - Manage Users</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 25%, #4A69BD 55%, #6C5CE7 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .glass {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .card-soft {
+      background: rgba(255,255,255,0.96);
+      color: #222;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .card-soft:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.14);
+    }
+    .btn-glow {
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%);
+      color: white;
+      border: none;
+      transition: 0.3s ease;
+    }
+    .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(108,92,231,0.35); }
+    .btn-soft {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      border-radius: 16px;
+      padding: 12px 18px;
+      transition: 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-soft:hover { background: rgba(255,255,255,0.22); color:#fff; transform: translateY(-2px); }
+    .stat-card {
+      background: rgba(255,255,255,0.96);
+      color:#222;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+      height: 100%;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-icon {
+      width: 54px; height: 54px; border-radius: 16px;
+      display:flex; align-items:center; justify-content:center;
+      font-size: 22px; color:#fff; margin-bottom: 12px;
+      background: linear-gradient(135deg, #FF6B9D 0%, #6C5CE7 100%);
+    }
+    .user-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: 0.3s ease;
+    }
+    .user-card:hover { transform: translateY(-4px); }
+    .avatar {
+      width: 56px; height: 56px;
+      border-radius: 18px;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-weight:800; font-size:18px;
+      background: linear-gradient(135deg, #FF6B9D 0%, #6C5CE7 100%);
+      flex-shrink: 0;
+    }
+    .field {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 12px 14px;
+      transition: 0.25s ease;
+    }
+    .field:hover { border-color: #6C5CE7; box-shadow: 0 6px 18px rgba(108,92,231,0.10); }
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(108,92,231,0.1);
+      color: #6C5CE7;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+    .chip-pink { background: rgba(255,107,157,0.12); color:#C4456F; }
+    .chip-green { background: rgba(20,184,114,0.12); color:#0f9f57; }
+    .search-input, .filter-select {
+      border-radius: 16px;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      color: #222;
+      background: #fff;
+    }
+    .small-muted { color:#6b7280; font-size: 13px; }
+    .empty-box {
+      background: rgba(255,255,255,0.96);
+      color:#222;
+      border-radius: 28px;
+      padding: 55px 20px;
+      text-align:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .modal-content { border-radius: 24px; overflow: hidden; }
+    .detail-row {
+      display:flex; justify-content:space-between; gap:16px;
+      padding:10px 0; border-bottom:1px solid #eee;
+    }
+    .detail-row .label { font-weight:700; color:#6C5CE7; }
+    .detail-row .value { text-align:right; word-break:break-word; color:#333; }
+  </style>
+</head>
+<body>
+  <header class="glass border-b border-white/15 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            Disability Care Hub
+          </div>
+          <h1 class="mt-4 text-3xl lg:text-5xl font-extrabold">Manage Users</h1>
+          <p class="mt-2 text-white/80">View, search, inspect and manage every registered user profile.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="admin dashboard.html" class="btn-soft">🏠 Dashboard</a>
+          <a href="admin orders.html" class="btn-soft">📦 Orders</a>
+          <button onclick="downloadPDF()" class="btn-soft">⬇️ Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="text-3xl font-extrabold" id="totalUsers">0</div>
+        <div class="text-sm text-gray-500 mt-1">Total Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-wheelchair"></i></div>
+        <div class="text-3xl font-extrabold" id="disabilityUsers">0</div>
+        <div class="text-sm text-gray-500 mt-1">With Disability Type</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="text-3xl font-extrabold" id="recentUsers">0</div>
+        <div class="text-sm text-gray-500 mt-1">Recent Registrations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="text-3xl font-extrabold" id="activeUsers">0</div>
+        <div class="text-sm text-gray-500 mt-1">Profile Complete</div>
+      </div>
+    </div>
+
+    <div class="glass rounded-[2rem] p-4 md:p-6 mb-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <input id="searchInput" class="search-input w-full" placeholder="Search name / email / phone / disability" />
+        <select id="filterDisability" class="filter-select w-full">
+          <option value="">All Disabilities</option>
+          <option value="Mobility">Mobility</option>
+          <option value="Vision">Vision</option>
+          <option value="Hearing">Hearing</option>
+          <option value="Cognitive">Cognitive</option>
+          <option value="Elderly">Elderly</option>
+          <option value="None">None</option>
+        </select>
+        <div class="flex gap-3">
+          <button class="btn-glow rounded-2xl px-5 py-3 font-semibold w-full" onclick="renderUsers()">Refresh</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="usersContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
+
+    <div id="emptyState" class="empty-box hidden">
+      <div class="text-7xl mb-4">👥</div>
+      <h3 class="text-2xl font-extrabold">No users found</h3>
+      <p class="text-gray-500 mt-2">Registered users will appear here after signup.</p>
+    </div>
+  </main>
+
+  <div class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50" id="modalWrap">
+    <div class="bg-white w-full max-w-2xl rounded-[1.75rem] overflow-hidden shadow-2xl">
+      <div class="p-5 border-b flex items-center justify-between">
+        <h3 class="text-xl font-bold text-slate-900">User Details</h3>
+        <button onclick="closeModal()" class="text-slate-500 hover:text-slate-900 text-2xl leading-none">&times;</button>
+      </div>
+      <div class="p-5 text-slate-800" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script>
+    let users = [];
+
+    function esc(str) {
+      return String(str || '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+
+    function loadUsers() {
+      users = JSON.parse(localStorage.getItem('disabilitycare_users')) || [];
+      users.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    }
+
+    function initials(name) {
+      const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+      const first = parts[0]?.[0] || 'U';
+      const second = parts[1]?.[0] || '';
+      return (first + second).toUpperCase();
+    }
+
+    function renderStats(filtered) {
+      document.getElementById('totalUsers').textContent = users.length;
+      document.getElementById('disabilityUsers').textContent = users.filter(u => u.disability && u.disability !== 'None').length;
+      document.getElementById('recentUsers').textContent = users.filter(u => {
+        const t = u.createdAt ? new Date(u.createdAt).getTime() : 0;
+        const sevenDays = Date.now() - 7 * 24 * 60 * 60 * 1000;
+        return t >= sevenDays;
+      }).length;
+      document.getElementById('activeUsers').textContent = users.filter(u => u.name && u.email && u.phone && u.address).length;
+    }
+
+    function renderUsers() {
+      loadUsers();
+      const search = document.getElementById('searchInput').value.trim().toLowerCase();
+      const disability = document.getElementById('filterDisability').value;
+
+      const filtered = users.filter(u => {
+        const matchSearch =
+          (u.name || '').toLowerCase().includes(search) ||
+          (u.email || '').toLowerCase().includes(search) ||
+          (u.phone || '').toLowerCase().includes(search) ||
+          (u.disability || '').toLowerCase().includes(search);
+
+        const matchDisability = !disability || u.disability === disability;
+        return matchSearch && matchDisability;
+      });
+
+      renderStats(filtered);
+
+      const container = document.getElementById('usersContainer');
+      const empty = document.getElementById('emptyState');
+
+      if (!filtered.length) {
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      container.innerHTML = filtered.map((u, i) => `
+        <div class="user-card group">
+          <div class="flex items-start gap-4">
+            <div class="avatar">${esc(initials(u.name))}</div>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-extrabold text-slate-900">${esc(u.name || '-')}</h3>
+                  <p class="small-muted">${esc(u.email || '-')}</p>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-semibold text-slate-600">#${i + 1}</div>
+                  <div class="text-xs text-slate-400">${u.createdAt ? new Date(u.createdAt).toLocaleString() : '-'}</div>
+                </div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap">
+                <span class="chip"><i class="fa-solid fa-phone"></i> ${esc(u.phone || '-')}</span>
+                <span class="chip chip-pink"><i class="fa-solid fa-wheelchair"></i> ${esc(u.disability || 'None')}</span>
+                <span class="chip chip-green"><i class="fa-solid fa-calendar"></i> Age ${esc(u.age || '-')}</span>
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button class="px-4 py-2 rounded-xl bg-slate-900 text-white font-semibold hover:scale-105 transition" onclick="viewUser('${esc(u.email)}')">
+                  View
+                </button>
+                <button class="px-4 py-2 rounded-xl bg-emerald-500 text-white font-semibold hover:scale-105 transition" onclick="callUser('${esc(u.phone)}')">
+                  Call
+                </button>
+                <button class="px-4 py-2 rounded-xl bg-rose-500 text-white font-semibold hover:scale-105 transition" onclick="deleteUser('${esc(u.email)}')">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function viewUser(email) {
+      const u = users.find(x => x.email === email);
+      if (!u) return;
+
+      document.getElementById('modalBody').innerHTML = `
+        <div class="detail-row"><span class="label">Name</span><span class="value">${esc(u.name || '-')}</span></div>
+        <div class="detail-row"><span class="label">Email</span><span class="value">${esc(u.email || '-')}</span></div>
+        <div class="detail-row"><span class="label">Phone</span><span class="value">${esc(u.phone || '-')}</span></div>
+        <div class="detail-row"><span class="label">Password</span><span class="value">${esc(u.password || '-')}</span></div>
+        <div class="detail-row"><span class="label">Disability Type</span><span class="value">${esc(u.disability || 'None')}</span></div>
+        <div class="detail-row"><span class="label">Age</span><span class="value">${esc(u.age || '-')}</span></div>
+        <div class="detail-row"><span class="label">Address</span><span class="value">${esc(u.address || '-')}</span></div>
+        <div class="detail-row"><span class="label">Created At</span><span class="value">${u.createdAt ? new Date(u.createdAt).toLocaleString() : '-'}</span></div>
+      `;
+      document.getElementById('modalWrap').classList.remove('hidden');
+      document.getElementById('modalWrap').classList.add('flex');
+    }
+
+    function closeModal() {
+      document.getElementById('modalWrap').classList.add('hidden');
+      document.getElementById('modalWrap').classList.remove('flex');
+    }
+
+    function callUser(phone) {
+      const digits = String(phone || '').replace(/\D/g, '');
+      if (!digits) return alert('Invalid phone number');
+      window.open(`tel:${digits}`, '_blank');
+    }
+
+    function deleteUser(email) {
+      if (!confirm('Delete this user?')) return;
+      users = users.filter(u => u.email !== email);
+      localStorage.setItem('disabilitycare_users', JSON.stringify(users));
+      renderUsers();
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+
+      pdf.setFontSize(18);
+      pdf.text('Disability Care Hub - Users Report', 14, 15);
+
+      pdf.setFontSize(10);
+      pdf.text(`Generated: ${new Date().toLocaleString()}`, 14, 24);
+
+      const rows = users.map(u => [
+        u.name || '',
+        u.email || '',
+        u.phone || '',
+        u.disability || 'None',
+        u.age || '',
+        u.address || '',
+        u.createdAt ? new Date(u.createdAt).toLocaleString() : ''
+      ]);
+
+      pdf.autoTable({
+        startY: 32,
+        head: [['Name', 'Email', 'Phone', 'Disability', 'Age', 'Address', 'Created At']],
+        body: rows,
+        styles: { fontSize: 7.5, cellPadding: 2 },
+        headStyles: { fillColor: [108, 92, 231] }
+      });
+
+      pdf.save('users-report.pdf');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderUsers);
+    document.getElementById('filterDisability').addEventListener('change', renderUsers);
+    document.getElementById('modalWrap').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    renderUsers();
+  </script>
+</body>
+</html>

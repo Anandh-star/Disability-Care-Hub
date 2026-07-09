@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disability Care Hub - Admin Dashboard 🏠</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 22%, #4A69BD 58%, #6C5CE7 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .glass {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .fadeIn { animation: fadeIn 0.6s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-card, .kpi-card, .module-card, .action-card {
+      transition: all 0.35s ease;
+    }
+    .hero-card:hover, .kpi-card:hover, .module-card:hover, .action-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+    }
+    .kpi-card {
+      background: rgba(255,255,255,0.94);
+      color: #1f2937;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    }
+    .kpi-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size: 24px;
+      background: linear-gradient(135deg, #FF6B9D 0%, #6C5CE7 100%);
+    }
+    .module-card {
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255,255,255,0.12);
+    }
+    .module-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .module-card:hover::before { opacity: 1; }
+    .module-card:hover .module-icon {
+      transform: scale(1.08) rotate(-3deg);
+    }
+    .module-icon {
+      transition: transform 0.35s ease;
+    }
+    .section-label {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+    .quick-link {
+      transition: all 0.3s ease;
+      border-radius: 16px;
+    }
+    .quick-link:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.20);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white">
+  <div class="min-h-screen fadeIn">
+    <div class="bg-white/10 backdrop-blur-md border-b border-white/20 p-6">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center gap-4">
+          <div class="text-5xl">🏠</div>
+          <div>
+            <h1 class="text-3xl font-extrabold">Admin Dashboard</h1>
+            <p class="text-white/80 mt-1">Disability Care Hub Management</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap">
+          <div class="glass px-6 py-3 rounded-2xl border border-white/20">
+            <div class="text-sm text-white/70">Logged in as</div>
+            <div class="font-extrabold text-xl" id="adminName">Admin</div>
+          </div>
+          <button onclick="logout()" class="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-2xl hover:scale-[1.02] transition">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="glass hero-card rounded-3xl p-8 border border-white/20 mb-8">
+          <div class="section-label mb-4">✨ Live Admin Overview</div>
+          <h2 class="text-3xl font-extrabold mb-4">Welcome Back Admin Smart 😎Anandh 👋</h2>
+          <p class="text-white/80 text-lg">Manage products, services, orders, users, and testimonials from the modules below.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          <div class="kpi-card p-6 border border-white/20">
+            <div class="kpi-icon mb-3">👥</div>
+            <div class="text-3xl font-extrabold" id="totalUsers">0</div>
+            <div class="text-slate-500 mt-1">Total Users</div>
+          </div>
+          <div class="kpi-card p-6 border border-white/20">
+            <div class="kpi-icon mb-3">🛍️</div>
+            <div class="text-3xl font-extrabold" id="totalProducts">0</div>
+            <div class="text-slate-500 mt-1">Products</div>
+          </div>
+          <div class="kpi-card p-6 border border-white/20">
+            <div class="kpi-icon mb-3">⚙️</div>
+            <div class="text-3xl font-extrabold" id="totalServices">0</div>
+            <div class="text-slate-500 mt-1">Services</div>
+          </div>
+          <div class="kpi-card p-6 border border-white/20">
+            <div class="kpi-icon mb-3">📦</div>
+            <div class="text-3xl font-extrabold" id="totalOrders">0</div>
+            <div class="text-slate-500 mt-1">Orders</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="manage products.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">🛍️</div>
+            <h3 class="text-2xl font-extrabold mb-2">Manage Products</h3>
+            <p class="text-white/75">Add, edit, and delete products</p>
+          </a>
+
+          <a href="manage services.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">⚙️</div>
+            <h3 class="text-2xl font-extrabold mb-2">Manage Featured Services</h3>
+            <p class="text-white/75">Add, edit, and delete services</p>
+          </a>
+
+          <a href="admin orders.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">📦</div>
+            <h3 class="text-2xl font-extrabold mb-2">Manage Orders</h3>
+            <p class="text-white/75">View and track all orders</p>
+          </a>
+
+          <a href="manage users.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">👥</div>
+            <h3 class="text-2xl font-extrabold mb-2">Manage Users</h3>
+            <p class="text-white/75">View and manage all users</p>
+          </a>
+
+          <a href="admin reviews.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">💬</div>
+            <h3 class="text-2xl font-extrabold mb-2">Manage Reviews</h3>
+            <p class="text-white/75">Approve, verify, and manage testimonials</p>
+          </a>
+
+          <a href="admin settings.html" class="glass module-card rounded-3xl p-8 border border-white/20 block">
+            <div class="module-icon text-6xl mb-4">🔧</div>
+            <h3 class="text-2xl font-extrabold mb-2">Settings</h3>
+            <p class="text-white/75">Configure app settings</p>
+          </a>
+        </div>
+
+        <div class="mt-8 glass action-card rounded-3xl p-8 border border-white/20">
+          <h3 class="text-2xl font-extrabold mb-4">Quick Actions ⚡</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="index.html" class="quick-link px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-center transition">
+              🏠 Go to Home
+            </a>
+            <a href="cart.html" class="quick-link px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-center transition">
+              🛒 View Cart
+            </a>
+            <a href="login.html" class="quick-link px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-center transition">
+              🔐 Login Page
+            </a>
+            <a href="signup.html" class="quick-link px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-center transition">
+              ✨ Signup Page
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+
+    function checkAdmin() {
+      const savedUser = localStorage.getItem('disabilitycare_currentUser');
+      const isLoggedIn = localStorage.getItem('disabilitycare_isLoggedIn');
+      const role = localStorage.getItem('disabilitycare_currentRole');
+      if (!savedUser || isLoggedIn !== 'true' || role !== 'Admin') {
+        alert('Admin access only! Please login as admin.');
+        window.location.href = 'login.html';
+        return;
+      }
+      currentUser = JSON.parse(savedUser);
+      document.getElementById('adminName').textContent = currentUser.name || 'Admin';
+      loadStats();
+    }
+
+    function getArrayFromStorage(keys) {
+      for (const key of keys) {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+        try {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) return parsed;
+        } catch (e) {}
+      }
+      return [];
+    }
+
+    function countItems(list) {
+      if (!Array.isArray(list)) return 0;
+      return list.reduce((total, item) => {
+        if (item && Array.isArray(item.items)) return total + item.items.length;
+        return total + 1;
+      }, 0);
+    }
+
+    function loadStats() {
+      const users = getArrayFromStorage(['disabilitycare_users']);
+      const products = getArrayFromStorage(['disabilitycare_products']);
+      const services = getArrayFromStorage(['disabilitycare_services']);
+      const orders = getArrayFromStorage(['disabilitycare_orders', 'disabilitycare_cart_orders', 'orders']);
+
+      document.getElementById('totalUsers').textContent = users.length;
+      document.getElementById('totalProducts').textContent = countItems(products);
+      document.getElementById('totalServices').textContent = countItems(services);
+      document.getElementById('totalOrders').textContent = countItems(orders);
+    }
+
+    function logout() {
+      localStorage.removeItem('disabilitycare_currentUser');
+      localStorage.removeItem('disabilitycare_isLoggedIn');
+      localStorage.removeItem('disabilitycare_currentRole');
+      setTimeout(() => window.location.href = 'login.html', 300);
+    }
+
+    window.addEventListener('storage', loadStats);
+    setInterval(loadStats, 1000);
+    checkAdmin();
+  </script>
+</body>
+</html>

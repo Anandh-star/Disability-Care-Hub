@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disability Care Hub - Home 🏠</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(125deg, #FF6B9D 0%, #C4456F 25%, #4A69BD 50%, #6C5CE7 75%, #A55EEA 100%);
+      background-size: 400% 400%;
+      min-height: 100vh;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    .navbar { background: rgba(255, 255, 255, 0.98) !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); backdrop-filter: blur(20px); border-radius: 0 0 30px 30px; }
+    .navbar-brand { font-weight: 800; font-size: 28px; background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-link { font-weight: 600; color: #333 !important; margin: 0 12px; transition: all 0.4s ease; font-size: 15px; }
+    .nav-link:hover { color: #6C5CE7 !important; transform: translateY(-2px); }
+    .nav-btn { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%); color: white; border: none; padding: 10px 22px; border-radius: 25px; font-weight: 600; transition: all 0.4s ease; text-decoration: none; display: inline-block; white-space: nowrap; }
+    .nav-btn:hover { color: white; transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4); }
+    .cart-icon { position: relative; font-size: 24px; cursor: pointer; transition: all 0.3s ease; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .cart-icon:hover { transform: scale(1.1); }
+    .cart-badge { position: absolute; top: -8px; right: -8px; background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 100%); color: white; font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+
+    .hero, .section, .footer { margin: 30px; border-radius: 40px; }
+    .hero { background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 245, 0.95) 100%); padding: 80px 0; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); }
+    .hero-title, .section-title { font-weight: 800; background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 30%, #6C5CE7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-title { font-size: 56px; margin-bottom: 20px; }
+    .hero-subtitle { font-size: 24px; color: #444; margin-bottom: 30px; font-weight: 500; }
+    .hero-btn { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%); color: white; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 18px; border: none; transition: all 0.4s ease; box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4); text-decoration: none; display: inline-block; }
+    .hero-btn:hover { color: white; transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6); }
+    .emergency-btn { background: linear-gradient(135deg, #FF4444 0%, #FF6B6B 100%); color: white; padding: 12px 30px; border-radius: 30px; font-weight: 700; border: none; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(255, 68, 68, 0.5); animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    .section { padding: 60px 0; background: rgba(255, 255, 255, 0.98); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); }
+    .section-title { font-size: 42px; text-align: center; margin-bottom: 50px; }
+    .hidden-not-logged { display: none !important; }
+
+    .about-content { padding: 30px; background: linear-gradient(135deg, rgba(255, 240, 245, 0.9) 0%, rgba(240, 248, 255, 0.9) 100%); border-radius: 30px; }
+    .about-text { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 20px; }
+
+    .features-grid, .contact-grid, .service-grid, .review-grid { display: grid; gap: 30px; margin-top: 40px; }
+    .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .contact-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .service-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .review-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .feature-item, .contact-item, .service-card, .testimonial-card {
+      background: white; padding: 30px; border-radius: 25px; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+    .feature-item:hover, .service-card:hover, .testimonial-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2); }
+
+    .feature-icon, .service-icon, .testimonial-avatar { font-size: 50px; margin-bottom: 15px; }
+    .feature-title, .service-title { font-size: 18px; font-weight: 700; color: #6C5CE7; margin-bottom: 10px; }
+    .feature-text, .service-text, .testimonial-text { font-size: 14px; color: #888; line-height: 1.7; }
+    .service-price { font-size: 18px; font-weight: 800; color: #C4456F; margin-top: 10px; }
+
+    .contact-item { text-align: center; background: linear-gradient(135deg, rgba(255, 240, 245, 0.9) 0%, rgba(240, 248, 255, 0.9) 100%); }
+    .contact-icon { font-size: 40px; margin-bottom: 10px; }
+    .contact-label { font-size: 13px; color: #888; margin-bottom: 5px; }
+    .contact-value { font-size: 16px; font-weight: 600; color: #6C5CE7; }
+
+    .footer { background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 30, 0.95) 100%); color: white; padding: 50px 0 30px; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3); }
+    .footer h4 { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; margin-bottom: 20px; }
+    .footer-text { font-size: 14px; color: #ccc; margin-bottom: 10px; }
+    .footer-highlight { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+
+    .profile-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; }
+    .profile-modal.show { display: flex; }
+    .profile-content { background: white; padding: 40px; border-radius: 30px; max-width: 600px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
+    .profile-header { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 100%); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; text-align: center; }
+    .profile-name { font-size: 28px; font-weight: 800; margin-bottom: 5px; }
+    .profile-role { font-size: 16px; opacity: 0.9; }
+    .profile-detail { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .profile-detail-label { font-weight: 600; color: #6C5CE7; }
+    .profile-detail-value { color: #555; text-align: right; }
+    .logout-btn { background: linear-gradient(135deg, #FF4444 0%, #FF6B6B 100%); color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; border: none; margin-top: 10px; cursor: pointer; transition: all 0.4s ease; width: 100%; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: #888; }
+    .empty-icon { font-size: 80px; margin-bottom: 20px; color: #ccc; }
+    .empty-text { font-size: 18px; margin-bottom: 10px; }
+    .empty-subtext { font-size: 14px; color: #aaa; }
+    .service-badge, .testimonial-badge { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+    .service-badge { background: rgba(108,92,231,0.1); color: #6C5CE7; }
+    .testimonial-badge { background: rgba(196,69,111,0.1); color: #C4456F; }
+
+    .search-container { margin: 30px 0; display: flex; gap: 10px; align-items: center; }
+    .search-input { flex: 1; max-width: 500px; padding: 15px 20px; border: 2px solid #ddd; border-radius: 30px; font-size: 16px; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; }
+    .search-input:focus { outline: none; border-color: #FF6B9D; box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2); }
+    .search-btn { background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%); color: white; border: none; padding: 15px 35px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 16px; }
+    .search-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4); }
+    .search-results { margin-top: 30px; }
+    .search-results-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .search-result-item { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); text-align: center; transition: all 0.3s ease; cursor: pointer; }
+    .search-result-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+    .search-result-icon { font-size: 40px; margin-bottom: 10px; }
+    .search-result-name { font-weight: 600; color: #333; margin-bottom: 5px; }
+    .search-result-type { font-size: 12px; color: #888; }
+    .no-results { text-align: center; padding: 40px 20px; color: #888; }
+
+    .stat-box { background: rgba(255,255,255,0.96); color:#222; border-radius:20px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.08); text-align:center; transition:transform .3s ease; }
+    .stat-box:hover { transform: translateY(-4px); }
+    .stat-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; margin-bottom:12px; background:linear-gradient(135deg,#FF6B9D 0%,#6C5CE7 100%); }
+    .stat-number { font-size:28px; font-weight:800; color:#6C5CE7; }
+    .stat-label { font-size:14px; color:#666; margin-top:4px; }
+
+    .form-select:focus {
+      border-color: #6C5CE7;
+      box-shadow: 0 0 0 .2rem rgba(108,92,231,.15);
+    }
+
+    .chatbot-btn{
+      position:fixed;
+      bottom:25px;
+      right:25px;
+      width:65px;
+      height:65px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#FF6B9D,#6C5CE7);
+      color:#fff;
+      font-size:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      z-index:9999;
+      box-shadow:0 10px 25px rgba(0,0,0,.3);
+    }
+    .chatbot-box{
+      position:fixed;
+      bottom:100px;
+      right:25px;
+      width:350px;
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+      display:none;
+      z-index:9999;
+      box-shadow:0 10px 40px rgba(0,0,0,.25);
+    }
+    .chatbot-header{
+      background:linear-gradient(135deg,#FF6B9D,#6C5CE7);
+      color:white;
+      padding:15px;
+      font-weight:700;
+    }
+    .chatbot-messages{
+      height:300px;
+      overflow-y:auto;
+      padding:15px;
+    }
+    .bot-msg{
+      background:#f1f1f1;
+      padding:10px;
+      border-radius:12px;
+      margin-bottom:10px;
+    }
+    .user-msg{
+      background:#6C5CE7;
+      color:white;
+      padding:10px;
+      border-radius:12px;
+      margin-bottom:10px;
+      text-align:right;
+    }
+    .chatbot-input{
+      display:flex;
+      border-top:1px solid #eee;
+    }
+    .chatbot-input input{
+      flex:1;
+      border:none;
+      padding:12px;
+      outline:none;
+    }
+    .chatbot-input button{
+      border:none;
+      background:#FF6B9D;
+      color:white;
+      padding:12px 15px;
+    }
+
+    .reviews-section {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+    .review-card-home {
+      background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+      border: 1px solid rgba(108,92,231,0.12);
+      border-left: 6px solid #6C5CE7;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+      height: 100%;
+      color: #222;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .review-card-home:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(108,92,231,0.15);
+    }
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .review-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1f2937;
+      margin-bottom: 4px;
+    }
+    .review-product {
+      font-size: 13px;
+      color: #6C5CE7;
+      font-weight: 600;
+    }
+    .review-stars {
+      color: #f59e0b;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .review-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+    .review-badge.verified {
+      background: rgba(20,184,114,0.14);
+      color: #0f9f57;
+    }
+    .review-badge.not-verified {
+      background: rgba(245,158,11,0.14);
+      color: #b45309;
+    }
+    .review-feedback {
+      color: #4b5563;
+      line-height: 1.75;
+      font-size: 14px;
+      margin: 14px 0 10px;
+      min-height: 52px;
+    }
+    .review-meta {
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .review-image-home {
+      width: 100%;
+      max-width: 180px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">🏠 Disability Care Hub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item hidden-not-logged" id="productsNavItem"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item hidden-not-logged" id="servicesNavItem"><a class="nav-link" href="service.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center flex-wrap gap-2 justify-content-end ms-auto">
+          <a href="login.html" class="nav-btn" id="loginBtn">🔐 Login</a>
+          <a href="signup.html" class="nav-btn" id="registerBtn" style="background: linear-gradient(135deg, #6C5CE7 0%, #A55EEA 100%);">✨ Signup</a>
+          <a href="javascript:void(0)" class="nav-btn" id="profileBtn" style="display:none;">👤 Profile</a>
+          <a href="cart.html" class="cart-icon" id="cartIcon" title="Cart" style="text-decoration:none;">🛒<span class="cart-badge" id="cartBadge">0</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="hero-title">Disability Care Hub 🏠</h1>
+          <p class="hero-subtitle">Everything for Disabled People - Clothes, Games, Accessories, Machines</p>
+          <p style="font-size: 16px; color: #666; margin-bottom: 30px;">Making life easier, comfortable, and fun for everyone!</p>
+
+          <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search products & services...">
+            <button class="search-btn" onclick="performSearch()">🔍 Search</button>
+          </div>
+
+          <div id="searchResults" class="search-results" style="display:none;">
+            <h4 style="color:#333; margin-bottom:15px;">Search Results</h4>
+            <div id="searchResultsGrid" class="search-results-grid"></div>
+            <div id="noResults" class="no-results" style="display:none;">
+              <p>😔 No products or services found. Try a different search term!</p>
+            </div>
+          </div>
+
+          <a href="login.html" class="hero-btn">Shop Now 🛒</a>
+          <button class="emergency-btn ms-3" id="emergencyBtn">🚨 Emergency Help</button>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/cbdb5b0118232945c7f2911176d1bb54d24cef57.jpg" alt="Adaptive Clothing" style="max-width:100%; border-radius:40px; box-shadow:0 20px 60px rgba(0,0,0,0.3); border:5px solid rgba(255,255,255,0.3);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Disability Care Hub 💙</h2>
+      <div class="about-content">
+        <p class="about-text">Disability Care Hub is a special e-commerce platform for elderly, disabled, and limited mobility people. We provide adaptive clothing, hearing machines, vision aids, mobility accessories, and fun games.</p>
+        <p class="about-text">Our mission is to make life easier, comfortable, and enjoyable for everyone with disabilities.</p>
+        <div class="features-grid">
+          <div class="feature-item"><div class="feature-icon">👕</div><h3 class="feature-title">Adaptive Clothes</h3><p class="feature-text">Magnetic buttons, velcro closure</p></div>
+          <div class="feature-item"><div class="feature-icon">👂</div><h3 class="feature-title">Hearing Machines</h3><p class="feature-text">Advanced hearing aids</p></div>
+          <div class="feature-item"><div class="feature-icon">👁</div><h3 class="feature-title">Vision Aids</h3><p class="feature-text">Reading aids, magnifiers</p></div>
+          <div class="feature-item"><div class="feature-icon">🦽</div><h3 class="feature-title">Mobility Help</h3><p class="feature-text">Wheelchair accessories</p></div>
+          <div class="feature-item"><div class="feature-icon">🎮</div><h3 class="feature-title">Fun Games</h3><p class="feature-text">Special games for disabled</p></div>
+          <div class="feature-item"><div class="feature-icon">🎒</div><h3 class="feature-title">Accessories</h3><p class="feature-text">Grabbers, reachers</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hidden-not-logged" id="products">
+    <div class="container">
+      <h2 class="section-title">Live Products 🛍️</h2>
+      <div id="homeProductsGrid" class="row g-4"></div>
+      <div id="homeEmptyProducts" class="empty-state">
+        <div class="empty-icon">🛍️</div>
+        <p class="empty-text">No products yet</p>
+        <p class="empty-subtext">Admin will add soon!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hidden-not-logged" id="services">
+    <div class="container">
+      <h2 class="section-title">Featured Services ⚙️</h2>
+      <div id="homeServicesGrid" class="service-grid"></div>
+      <div id="homeEmptyServices" class="empty-state">
+        <div class="empty-icon">⚙️</div>
+        <p class="empty-text">No services yet</p>
+        <p class="empty-subtext">Admin will add soon!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reviews-section" id="homeReviewsSection">
+    <div class="container">
+      <h2 class="section-title">Customer Reviews ⭐</h2>
+      <div id="homeReviewsGrid" class="review-grid"></div>
+      <div id="homeEmptyReviews" class="empty-state">
+        <div class="empty-icon">⭐</div>
+        <p class="empty-text">No reviews yet</p>
+        <p class="empty-subtext">Customer feedback will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact Us 📞</h2>
+      <div class="contact-grid">
+        <div class="contact-item"><div class="contact-icon">📍</div><p class="contact-label">Location</p><p class="contact-value">Chennai, Tamil Nadu</p></div>
+        <div class="contact-item"><div class="contact-icon">📧</div><p class="contact-label">Email</p><p class="contact-value">support@disabilitycarehub.com</p></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><p class="contact-label">Phone</p><p class="contact-value">+91 75028 70211</p></div>
+        <div class="contact-item"><div class="contact-icon">⏰</div><p class="contact-label">Hours</p><p class="contact-value">9 AM - 9 PM</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"><h4>🏠 Disability Care Hub</h4><p class="footer-text">Everything for disabled people</p></div>
+        <div class="col-md-4"><h4>Quick Links</h4><p class="footer-text">Home | About | Products | Services</p></div>
+        <div class="col-md-4"><h4>Contact</h4><p class="footer-text">Chennai, Tamil Nadu</p><p class="footer-text">support@disabilitycarehub.com</p><p class="footer-text">Contact No - 75028 70211</p></div>
+      </div>
+      <div class="text-center mt-4"><p class="footer-text">Designed by <span class="footer-highlight">S. Anandh 😎</span> | © 2026 Disability Care Hub 💻</p></div>
+    </div>
+  </footer>
+
+  <div class="profile-modal" id="profileModal">
+    <div class="profile-content">
+      <div class="profile-header">
+        <div class="profile-name" id="profileName">User Name</div>
+        <div class="profile-role" id="profileRole">User</div>
+      </div>
+      <div id="profileDetails"></div>
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="emergencyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:24px; overflow:hidden;">
+        <div class="modal-header" style="background:linear-gradient(135deg,#FF4444 0%,#FF6B6B 100%);color:#fff;">
+          <h5 class="modal-title fw-bold">🚨 Emergency Help</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" style="background:linear-gradient(135deg,#fff5f7 0%,#f8f9ff 100%);">
+          <div class="text-center mb-3" style="font-size:64px;">🚑</div>
+          <p class="fw-semibold text-center mb-4" style="color:#444;">Quick emergency numbers for immediate help.</p>
+          <div class="d-grid gap-3">
+            <a href="tel:112" class="btn btn-danger btn-lg rounded-4 fw-bold">🚨 Emergency: 112</a>
+            <a href="tel:100" class="btn btn-outline-danger btn-lg rounded-4 fw-bold">👮 Police: 100</a>
+            <a href="tel:102" class="btn btn-outline-primary btn-lg rounded-4 fw-bold">🚑 Ambulance: 102</a>
+            <a href="tel:+9191028070211" class="btn btn-dark btn-lg rounded-4 fw-bold">📞 Help Line: +91 75028 70211</a>
+          </div>
+          <div class="mt-4 p-3 rounded-4" style="background:#ffffff; border:1px solid #eee;">
+            <div class="fw-bold mb-1" style="color:#C4456F;">Stay calm</div>
+            <small class="text-muted">Tap the number you need. It will open the phone app directly.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot-btn" onclick="toggleChatbot()">💬</div>
+  <div class="chatbot-box" id="chatbotBox">
+    <div class="chatbot-header">Disability Care AI 🤖</div>
+    <div class="chatbot-messages" id="chatMessages">
+      <div class="bot-msg">👋 Welcome to Disability Care Hub <br><br> Type: <br>Wheelchair <br>Walker <br>Hearing Aid <br>Contact <br>Emergency</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Ask something...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let currentUser = null;
+    let cart = [];
+
+    function esc(str) {
+      return String(str || '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+    }
+
+    function getJSON(key, fallback = []) {
+      try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function setJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function syncGuestCartToUser() {
+      if (!currentUser || !currentUser.email) return;
+      const guestCart = getJSON('disabilitycare_guest_cart', []);
+      const userCartKey = `disabilitycare_cart_${currentUser.email}`;
+      const userCart = getJSON(userCartKey, []);
+      if (guestCart.length > 0) {
+        const mergedCart = [...userCart, ...guestCart];
+        setJSON(userCartKey, mergedCart);
+        localStorage.removeItem('disabilitycare_guest_cart');
+        cart = mergedCart;
+        document.getElementById('cartBadge').textContent = mergedCart.length;
+      } else {
+        cart = userCart;
+        document.getElementById('cartBadge').textContent = userCart.length;
+      }
+    }
+
+    function updateNavbarAndSections() {
+      const savedUser = localStorage.getItem('disabilitycare_currentUser');
+      const isLoggedIn = localStorage.getItem('disabilitycare_isLoggedIn');
+
+      if (savedUser && isLoggedIn === 'true') {
+        currentUser = JSON.parse(savedUser);
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('registerBtn').style.display = 'none';
+        const profileBtn = document.getElementById('profileBtn');
+        profileBtn.style.display = 'inline-block';
+        profileBtn.textContent = `👤 ${currentUser.name || 'Profile'}`;
+        document.getElementById('productsNavItem').classList.remove('hidden-not-logged');
+        document.getElementById('servicesNavItem').classList.remove('hidden-not-logged');
+        document.getElementById('products').classList.remove('hidden-not-logged');
+        document.getElementById('services').classList.remove('hidden-not-logged');
+        syncGuestCartToUser();
+        openProfile();
+      } else {
+        currentUser = null;
+        document.getElementById('loginBtn').style.display = 'inline-block';
+        document.getElementById('registerBtn').style.display = 'inline-block';
+        document.getElementById('profileBtn').style.display = 'none';
+        document.getElementById('productsNavItem').classList.add('hidden-not-logged');
+        document.getElementById('servicesNavItem').classList.add('hidden-not-logged');
+        document.getElementById('products').classList.add('hidden-not-logged');
+        document.getElementById('services').classList.add('hidden-not-logged');
+        const guestCart = getJSON('disabilitycare_guest_cart', []);
+        document.getElementById('cartBadge').textContent = guestCart.length;
+      }
+    }
+
+    document.getElementById('profileBtn').addEventListener('click', function() {
+      if (!currentUser) return alert('Please login first!');
+      openProfile();
+    });
+
+    document.getElementById('emergencyBtn').addEventListener('click', function() {
+      const modal = new bootstrap.Modal(document.getElementById('emergencyModal'));
+      modal.show();
+    });
+
+    function openProfile() {
+      if (!currentUser) return;
+      document.getElementById('profileName').textContent = currentUser.name || 'User';
+      document.getElementById('profileRole').textContent = currentUser.disability || currentUser.role || 'User';
+      let html = '';
+      if (currentUser.email) html += `<div class="profile-detail"><span class="profile-detail-label">📧 Email</span><span class="profile-detail-value">${esc(currentUser.email)}</span></div>`;
+      if (currentUser.phone) html += `<div class="profile-detail"><span class="profile-detail-label">📞 Mobile</span><span class="profile-detail-value">${esc(currentUser.phone)}</span></div>`;
+      if (currentUser.disability) html += `<div class="profile-detail"><span class="profile-detail-label">🦽 Disability Type</span><span class="profile-detail-value">${esc(currentUser.disability)}</span></div>`;
+      if (currentUser.age) html += `<div class="profile-detail"><span class="profile-detail-label">🎂 Age</span><span class="profile-detail-value">${esc(currentUser.age)}</span></div>`;
+      if (currentUser.address) html += `<div class="profile-detail"><span class="profile-detail-label">📍 Address</span><span class="profile-detail-value">${esc(currentUser.address)}</span></div>`;
+      if (currentUser.createdAt) html += `<div class="profile-detail"><span class="profile-detail-label">📅 Joined</span><span class="profile-detail-value">${new Date(currentUser.createdAt).toLocaleDateString()}</span></div>`;
+      document.getElementById('profileDetails').innerHTML = html;
+      document.getElementById('profileModal').classList.add('show');
+    }
+
+    function closeProfile() {
+      document.getElementById('profileModal').classList.remove('show');
+    }
+
+    function logout() {
+      localStorage.removeItem('disabilitycare_currentUser');
+      localStorage.removeItem('disabilitycare_isLoggedIn');
+      localStorage.removeItem('disabilitycare_currentRole');
+      currentUser = null;
+      cart = [];
+      closeProfile();
+      window.location.reload();
+    }
+
+    document.getElementById('profileModal').addEventListener('click', function(e) {
+      if (e.target === this) closeProfile();
+    });
+
+    function renderProducts() {
+      const products = getJSON('disabilitycare_products', []);
+      const grid = document.getElementById('homeProductsGrid');
+      const empty = document.getElementById('homeEmptyProducts');
+      if (!grid || !empty) return;
+      if (!products.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      grid.innerHTML = products.slice(0, 6).map(p => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="service-card h-100">
+            <div class="service-badge">Featured Product</div>
+            <img src="${esc(p.image)}" alt="${esc(p.name)}" style="width:100%;height:220px;object-fit:cover;border-radius:20px;margin-bottom:14px;">
+            <h3 class="service-title">${esc(p.name)}</h3>
+            <p class="service-text">${esc(p.description || '')}</p>
+            <div class="service-price">₹${esc(p.price)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function loadServices() {
+      const services = getJSON('disabilitycare_services', []);
+      const grid = document.getElementById('homeServicesGrid');
+      const empty = document.getElementById('homeEmptyServices');
+      if (!grid || !empty) return;
+      if (!services.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      grid.innerHTML = services.slice(0, 6).map(service => `
+        <div class="service-card">
+          <div class="service-badge">Service</div>
+          <div class="service-icon">${esc(service.icon || '⚙️')}</div>
+          <div class="service-title">${esc(service.name)}</div>
+          <div class="service-text">${esc(service.description || '')}</div>
+          <div class="service-price">${service.price ? '₹' + esc(service.price) : ''}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderHomeReviews() {
+      const reviews = getJSON('disabilitycare_testimonials', []).filter(r => r && r.feedback);
+      const grid = document.getElementById('homeReviewsGrid');
+      const empty = document.getElementById('homeEmptyReviews');
+      if (!grid || !empty) return;
+
+      reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      if (!reviews.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      grid.innerHTML = reviews.slice(0, 6).map(r => `
+        <div class="review-card-home">
+          <div class="review-top">
+            <div>
+              <div class="review-name">${esc(r.customerName || 'Customer')}</div>
+              <div class="review-product">${esc(r.productName || 'Product Review')}</div>
+            </div>
+            <div class="text-end">
+              <div class="review-stars">${'★'.repeat(Number(r.rating || 0))}${'☆'.repeat(5 - Number(r.rating || 0))}</div>
+              <div class="review-badge ${r.verified ? 'verified' : 'not-verified'}">
+                ${r.verified ? '✅ Verified' : '🕓 Pending'}
+              </div>
+            </div>
+          </div>
+
+          ${r.imageData ? `<img src="${esc(r.imageData)}" alt="Review Image" class="review-image-home">` : ''}
+
+          <div class="review-feedback">${esc(r.feedback || '')}</div>
+
+          <div class="review-meta">
+            <span>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : ''}</span>
+            <span>${r.verified ? 'Buyer-linked review' : 'Needs verification'}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(name, amount, image) {
+      const item = { name, price: amount, image, addedAt: new Date().toISOString() };
+      if (!currentUser) {
+        const guestCart = getJSON('disabilitycare_guest_cart', []);
+        guestCart.push(item);
+        setJSON('disabilitycare_guest_cart', guestCart);
+        document.getElementById('cartBadge').textContent = guestCart.length;
+        alert('✅ Added to cart!');
+        return;
+      }
+      const cartKey = `disabilitycare_cart_${currentUser.email}`;
+      const userCart = getJSON(cartKey, []);
+      userCart.push(item);
+      setJSON(cartKey, userCart);
+      document.getElementById('cartBadge').textContent = userCart.length;
+      alert('✅ Added to cart!');
+    }
+
+    function buyNow(name, amount, image) {
+      addToCart(name, amount, image);
+      setTimeout(() => window.location.href = 'cart.html', 400);
+    }
+
+    function updateAllHomeData() {
+      updateNavbarAndSections();
+      renderProducts();
+      loadServices();
+      renderHomeReviews();
+    }
+
+    function performSearch() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!searchTerm) {
+        document.getElementById('searchResults').style.display = 'none';
+        return;
+      }
+      const products = getJSON('disabilitycare_products', []);
+      const services = getJSON('disabilitycare_services', []);
+      const results = [];
+
+      products.forEach(product => {
+        if (product.items && Array.isArray(product.items)) {
+          product.items.forEach(item => {
+            if ((item.name && item.name.toLowerCase().includes(searchTerm)) || (item.description && item.description.toLowerCase().includes(searchTerm))) {
+              results.push({ type:'product', name:item.name, price:item.price, image:item.image });
+            }
+          });
+        }
+      });
+
+      services.forEach(service => {
+        if (service.items && Array.isArray(service.items)) {
+          service.items.forEach(item => {
+            if ((item.name && item.name.toLowerCase().includes(searchTerm)) || (item.description && item.description.toLowerCase().includes(searchTerm))) {
+              results.push({ type:'service', name:item.name, price:item.price, image:item.image });
+            }
+          });
+        }
+      });
+
+      const resultsContainer = document.getElementById('searchResults');
+      const resultsGrid = document.getElementById('searchResultsGrid');
+      const noResults = document.getElementById('noResults');
+
+      if (!results.length) {
+        noResults.style.display = 'block';
+        resultsGrid.innerHTML = '';
+        resultsContainer.style.display = 'block';
+        return;
+      }
+
+      noResults.style.display = 'none';
+      resultsGrid.innerHTML = results.slice(0, 8).map(item => `
+        <div class="search-result-item" onclick="quickAddToCart('${esc(item.name)}', ${item.price}, '${esc(item.image)}')">
+          <div class="search-result-icon">${item.type === 'product' ? '🛍️' : '⚙️'}</div>
+          <div class="search-result-name">${esc(item.name)}</div>
+          <div style="font-size:14px; color:#C4456F; font-weight:600; margin-bottom:5px;">₹${item.price}</div>
+          <div class="search-result-type">${item.type === 'product' ? '📦 Product' : '⚙️ Service'}</div>
+        </div>
+      `).join('');
+      resultsContainer.style.display = 'block';
+    }
+
+    function quickAddToCart(name, price, image) {
+      addToCart(name, price, image);
+    }
+
+    function toggleChatbot(){
+      const box=document.getElementById('chatbotBox');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendMessage(){
+      const input=document.getElementById('chatInput');
+      const messages=document.getElementById('chatMessages');
+      let text=input.value.trim();
+      if(text==='') return;
+      messages.innerHTML += `<div class="user-msg">${esc(text)}</div>`;
+      let reply='😅 Sorry, I did not understand.';
+      text=text.toLowerCase();
+      if(text.includes('wheelchair')) reply='🦽 Foldable Wheelchair Available';
+      else if(text.includes('walker')) reply='🚶 Walker Available';
+      else if(text.includes('hearing')) reply='👂 Hearing Aid Available';
+      else if(text.includes('contact')) reply='📞 +91 75028 70211';
+      else if(text.includes('emergency')) reply='🚨 Emergency Number: 112';
+      else if(text.includes('hello') || text.includes('hi')) reply='👋 Hello! How can I help you?';
+      messages.innerHTML += `<div class="bot-msg">${reply}</div>`;
+      input.value='';
+      messages.scrollTop=messages.scrollHeight;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') performSearch();
+        });
+      }
+      updateAllHomeData();
+    });
+
+    window.addEventListener('storage', () => {
+      updateAllHomeData();
+    });
+  </script>
+</body>
+</html>

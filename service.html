@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disability Care Hub - Services ⚙️</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 25%, #4A69BD 55%, #6C5CE7 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #fff;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .topbar {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      padding: 22px 0;
+    }
+
+    .brand { font-size: 30px; font-weight: 800; }
+    .subtitle { color: rgba(255,255,255,0.82); font-size: 15px; margin-top: 4px; }
+
+    .glass {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .btn-soft {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      border-radius: 18px;
+      padding: 12px 22px;
+      transition: 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-soft:hover {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .page-title { font-size: 30px; font-weight: 800; margin-bottom: 8px; }
+    .page-desc { color: rgba(255,255,255,0.8); font-size: 14px; }
+
+    .service-shell { border-radius: 30px; padding: 30px; }
+
+    .service-card {
+      background: rgba(255,255,255,0.96);
+      color: #222;
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+      height: 100%;
+    }
+
+    .service-card:hover { transform: translateY(-4px); }
+
+    .service-icon-box {
+      width: 100%;
+      height: 220px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 76px;
+      background: linear-gradient(135deg, rgba(255,107,157,0.12), rgba(108,92,231,0.12));
+      margin-bottom: 14px;
+    }
+
+    .type-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: rgba(108,92,231,0.1);
+      color: #6C5CE7;
+    }
+
+    .service-title { font-size: 20px; font-weight: 800; color: #333; margin-bottom: 6px; }
+    .service-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 10px; min-height: 44px; }
+    .price { font-size: 22px; font-weight: 800; color: #C4456F; margin-bottom: 14px; }
+
+    .add-btn {
+      background: linear-gradient(135deg, #FF6B9D 0%, #C4456F 50%, #6C5CE7 100%);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      padding: 12px 18px;
+      font-weight: 800;
+      width: 100%;
+    }
+
+    .book-btn {
+      background: linear-gradient(135deg, #FF4444 0%, #FF6B6B 100%);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      padding: 12px 18px;
+      font-weight: 800;
+      width: 100%;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 70px 20px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .empty-icon { font-size: 80px; margin-bottom: 16px; }
+    .empty-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+    .empty-text { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <div class="brand">⚙️ Services</div>
+          <div class="subtitle">Book helpful services easily</div>
+        </div>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="index.html" class="btn-soft">🏠 Home</a>
+          <a href="cart.html" class="btn-soft">🛒 Cart</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div class="glass service-shell">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+          <h1 class="page-title">Our Services ⚙️</h1>
+          <p class="page-desc">Support, assistance, repair and care services for users.</p>
+        </div>
+      </div>
+
+      <div class="section-label">Available Services</div>
+      <div id="servicesGrid" class="row g-4"></div>
+
+      <div id="emptyServices" class="empty-state d-none">
+        <div class="empty-icon">⚙️</div>
+        <div class="empty-title">No services yet</div>
+        <div class="empty-text">Admin can add services anytime.</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentUser = null;
+
+    const services = [
+      {
+        name: 'Home Assistance',
+        price: 499,
+        icon: '🏠',
+        description: 'Daily home support and personal assistance service.'
+      },
+      {
+        name: 'Mobility Support',
+        price: 699,
+        icon: '🦽',
+        description: 'Help for movement, transfer and mobility related support.'
+      },
+      {
+        name: 'Device Setup',
+        price: 399,
+        icon: '🔧',
+        description: 'Setup support for aids, devices and accessories.'
+      },
+      {
+        name: 'Hearing Aid Service',
+        price: 599,
+        icon: '👂',
+        description: 'Basic hearing aid inspection and support service.'
+      },
+      {
+        name: 'Vision Care Help',
+        price: 449,
+        icon: '👁️',
+        description: 'Support for vision-related daily usage and guidance.'
+      },
+      {
+        name: 'Emergency Support',
+        price: 999,
+        icon: '🚨',
+        description: 'Priority assistance for urgent support situations.'
+      }
+    ];
+
+    function esc(str) {
+      return String(str || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function getCurrentUser() {
+      const savedUser = localStorage.getItem('disabilitycare_currentUser');
+      const isLoggedIn = localStorage.getItem('disabilitycare_isLoggedIn');
+      if (savedUser && isLoggedIn === 'true') return JSON.parse(savedUser);
+      return null;
+    }
+
+    function getCartKey() {
+      currentUser = getCurrentUser();
+      if (currentUser) return `disabilitycare_cart_${currentUser.email}`;
+      return 'disabilitycare_guest_cart';
+    }
+
+    function getCart() {
+      const key = getCartKey();
+      return JSON.parse(localStorage.getItem(key)) || [];
+    }
+
+    function saveCart(cart) {
+      const key = getCartKey();
+      localStorage.setItem(key, JSON.stringify(cart));
+    }
+
+    function addToCart(name, price, image, type = 'service', description = '') {
+      const cart = getCart();
+      const existing = cart.find(item =>
+        item.name === name &&
+        item.type === type &&
+        item.price === price
+      );
+
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({
+          name,
+          price,
+          image,
+          type,
+          description,
+          qty: 1,
+          addedAt: new Date().toISOString()
+        });
+      }
+
+      saveCart(cart);
+      alert('✅ Added to cart!');
+    }
+
+    function buyNow(name, price, image, type = 'service', description = '') {
+      addToCart(name, price, image, type, description);
+      window.location.href = 'cart.html';
+    }
+
+    function loadServices() {
+      const grid = document.getElementById('servicesGrid');
+      const empty = document.getElementById('emptyServices');
+
+      if (!services.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('d-none');
+        return;
+      }
+
+      empty.classList.add('d-none');
+      grid.innerHTML = services.map((item) => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon-box">${esc(item.icon)}</div>
+            <div class="type-badge">Service</div>
+            <div class="service-title">${esc(item.name)}</div>
+            <div class="service-desc">${esc(item.description)}</div>
+            <div class="price">₹${esc(item.price)}</div>
+            <div class="d-grid gap-2">
+              <button class="add-btn" onclick="addToCart('${esc(item.name)}', ${item.price}, '${esc(item.icon)}', 'service', '${esc(item.description)}')">
+                Add to Cart
+              </button>
+              <button class="book-btn" onclick="buyNow('${esc(item.name)}', ${item.price}, '${esc(item.icon)}', 'service', '${esc(item.description)}')">
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadServices();
+  </script>
+</body>
+</html>
