@@ -208,3 +208,17 @@ Frontend Web Developer
 ---
 
 ## ⭐ If you like this project, don't forget to Star this repository.
+
+--------------------------------------------------------------------------------------------------------
+
+## 🔑 Demo Credentials
+
+To explore all features of the application, use the following Admin account:
+
+**Admin Email:** `ar@gmail.com`
+
+**Password:** `1208`
+
+> Note:
+> User registration and login are required to access products and services. Admin features become available only after logging in with the credentials above.
+
